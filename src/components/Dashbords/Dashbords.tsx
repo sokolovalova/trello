@@ -9,10 +9,12 @@ interface DashbordsProps extends RouteChildrenProps{
 }
 
 export class Dashbords extends React.Component<DashbordsProps> {
-
+state={
+  token:''
+}
 
 getDashboars(){
-    fetch(`https://api.trello.com/1/members/{id}/boards?key=${KEY}&token=${this.props.token}`, {
+    fetch(`https://api.trello.com/1/members/{id}/boards?key=${KEY}&token=${this.state.token}`, {
   method: 'GET',
   headers: {
     'Accept': 'application/json'
@@ -24,19 +26,23 @@ getDashboars(){
     );
     return response.text();
   })
-  .then(text => console.log(text))
   .catch(err => console.error(err));
 }
 
+getTokenFromUrl() {
+  try {
+    return window.location.hash.split('=')[1];
+  }
+  catch (e) { throw (e); }
+}
 componentDidMount(){
-    if(this.props.token){
-        this.getDashboars();
-    }
-
+  this.setState({token: this.getTokenFromUrl()});
+  console.log(this.state.token);
+  this.getDashboars();
 }
 
-
     render() {
+
         return (
             <div>
                 HELLO, THIS IS DASHBORDS!

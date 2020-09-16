@@ -15,8 +15,8 @@ export interface AppState{
   
 export interface Routes{
   path: string;
-  component: any;
-  // render: (props: any) => any,
+  // component: any;
+  render: (props: any) => any,
   title?: string;
   exact?: boolean;
   isHidden?:boolean;

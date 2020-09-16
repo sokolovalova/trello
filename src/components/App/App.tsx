@@ -4,7 +4,7 @@ import {Route, Link, Switch, Redirect} from 'react-router-dom';
 
 
 import { STORAGE_TOKEN } from '../../utils/constants';
-import { ROUTES } from './routes';
+import { ROUTES } from './routes/routes';
 import { AppState, Routes } from './interfacesApp';
 import { setToLocalStorage, getLocalStorage } from '../../utils';
 
@@ -39,14 +39,14 @@ export class App extends React.Component {
     return (!!this.state.token);
   }
 
-  async componentDidMount() {
+  // async componentDidMount() {
 
-    if (!this.state.token) {
-      const newToken = await this.getTokenFromUrl();
-      this.setToken(newToken);
-      console.log(this.state.token);
-    }
-  }
+  //   if (!this.state.token) {
+  //     const newToken = await this.getTokenFromUrl();
+  //     this.setToken(newToken);
+  //     console.log(this.state.token);
+  //   }
+  // }
 
   renderNavigation(){
     return(
@@ -66,7 +66,7 @@ export class App extends React.Component {
          key={i} 
          exact={oneRoute.exact} 
          path={oneRoute.path} 
-         render={oneRoute.render(...props)}/>
+         render={(props)=>oneRoute.render({...props, token: this.state.token})} />
         })}
         <Redirect to='/404' />
         </Switch>
