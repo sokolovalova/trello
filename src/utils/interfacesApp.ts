@@ -20,4 +20,5 @@ export interface Routes{
   title?: string;
   exact?: boolean;
   isHidden?:boolean;
+  isProtected?:boolean;
 }

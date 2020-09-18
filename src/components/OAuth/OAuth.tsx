@@ -1,13 +1,16 @@
-import * as React from 'react';
-import { Route, RouteChildrenProps } from 'react-router-dom';
-import { Dashbords } from '../Dashbords';
+import React, { FunctionComponent } from "react";
+import { RouteChildrenProps, Redirect, Route } from "react-router";
+import {URL_ROUTES} from '../App/routes'
+import { Dashbords } from "../Dashbords";
 
-export class OAuth extends React.Component<RouteChildrenProps> {
+interface OAuthProps extends RouteChildrenProps {
+  onSetToken: (token: string) => void;
+}
 
-    render() {
-        console.log(this.props.location);
-        return <Route path='/dashbords' exact render={(props:any)=><Dashbords {...props}/>} />;
-        // return <Dashbords />;
-        
-    }
+export const OAuth: FunctionComponent<OAuthProps> = ({ location: { hash }, onSetToken }: OAuthProps)  => {
+  const token = hash.split('=')[1];
+  onSetToken(token);
+  console.log('entered OAUTH');
+  return <Redirect to= {URL_ROUTES.DASHBORDS} />
+  // return <Route exact path='/dashbords' component={Dashbords} />;
 }

@@ -36,13 +36,13 @@ getTokenFromUrl() {
   catch (e) { throw (e); }
 }
 componentDidMount(){
-  this.setState({token: this.getTokenFromUrl()});
-  console.log(this.state.token);
-  this.getDashboars();
+  // this.setState({token: this.getTokenFromUrl()});
+  // console.log(this.state.token);
+  // this.getDashboars();
 }
 
     render() {
-
+      
         return (
             <div>
                 HELLO, THIS IS DASHBORDS!

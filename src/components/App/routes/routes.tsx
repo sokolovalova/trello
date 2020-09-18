@@ -1,39 +1,58 @@
 import * as React from 'react';
 import {Redirect, RouteChildrenProps} from 'react-router-dom';
-import {Routes} from '../interfacesApp';
 
 import {Login} from '../../Login';
 import {Dashbords} from '../../Dashbords';
 import {NotFound} from '../../NotFound';
 import {OAuth} from '../../OAuth';
 
+export interface Routes{
+    path: URL_ROUTES;
+    // component: any;
+    render: (props: RouteChildrenProps) => any,
+    title?: string;
+    exact?: boolean;
+    isHidden?:boolean;
+    isProtected?:boolean;
+  }
+
+export enum URL_ROUTES{
+    DASHBORDS= '/dashbords',
+    LOGIN = '/login',
+    OAUTH = 'oauth',
+    NOT_FOUND = '/404',
+    HOME='/'
+
+}
+
 export const ROUTES: Array<Routes>= [
 {
-    path: '/',
+    path: URL_ROUTES.LOGIN,
     exact: true,
     render: (props: RouteChildrenProps) => <Login {...props} />,
     title: '-Login-'
 },
 {
-    path: '/dashbords',
+    path: URL_ROUTES.DASHBORDS,
     exact: true,
     render:(props:RouteChildrenProps)=><Dashbords {...props} />,
-    title: '-Dashbords-'
-},
-{
-    path: '/oauth',
-    exact: true,
-    render:(props:RouteChildrenProps)=><OAuth{...props}/>,
-    isHidden:true
+    title: '-Dashbords-',
+    isProtected: true
 },
 // {
-//     path: '/',
+//     path: '/oauth',
 //     exact: true,
-//     render:(props:any)=><Redirect{...props} />,
+//     render:(props:RouteChildrenProps)=><OAuth {...props}/>,
 //     isHidden:true
 // },
 {
-    path: '/404',
+    path: URL_ROUTES.HOME,
+    exact: true,
+    render:(props:any)=><Redirect{...props} />,
+    isHidden:true
+},
+{
+    path: URL_ROUTES.NOT_FOUND,
     exact: true,
     render:(props:RouteChildrenProps)=><NotFound{...props} />,
     isHidden:true
